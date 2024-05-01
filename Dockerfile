@@ -1,7 +1,7 @@
 # Use a base image suitable for your application runtime, for example, OpenJDK for Java applications
 FROM openjdk:17-jdk
 
-RUN apt-get update && apt-get install -y wget
+RUN apt-get update; apt-get install -y wget
 
 # Set the working directory inside the container
 WORKDIR /app
