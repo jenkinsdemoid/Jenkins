@@ -1,14 +1,8 @@
-# Use a base image suitable for your application runtime, for example, OpenJDK for Java applications
-#FROM openjdk:17-jdk
-
-FROM ubuntu:latest
-RUN apt-get update && apt-get install -y openjdk-17-jdk && apt-get install -y wget
-
-# Set the working directory inside the container
-WORKDIR /app
-
-# Download the artifact from JFrog Artifactory 
-RUN wget -O CalculateApp.war "http://localhost:8081/artifactory/generic-local/target/CalculateApp.war" 
-
-# Define the command to run your application when the container starts 
-CMD ["java", "-war", "CalculateApp.war"]
+FROM openjdk:17
+ 
+ARG ARTIFACTORY_USERNAME
+ARG ARTIFACTORY_PASSWORD
+ 
+RUN curl -u $ARTIFACTORY_USERNAME:$ARTIFACTORY_PASSWORD -o CalculateApp.war "http://localhost:8082/artifactory/generic-local/target/CalculateApp.war"
+ 
+ENTRYPOINT ["java", "-war", "CalculateApp.war"]
