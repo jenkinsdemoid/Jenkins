@@ -17,7 +17,11 @@ public class CalculateController {
 	public CalculateController(CalculateService calculateService) {
 		this.calculateService = calculateService;
 	}
-
+	@GetMapping("/hello")
+    	public String helloWorld() {
+        return "Hello, world!";
+    }
+	
 	@GetMapping("/")
 	public String showForm() {
 		return "calculatorForm";
